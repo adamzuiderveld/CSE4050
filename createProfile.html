@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Create Profile</title>
+	  <meta charset="utf-8">
+	  <!-- Bootstrap sources.. -->
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="index.css">
+<script src = "index.js"> </script>
+
+</head>
+<body>
+	<div class="account-details"></div>
+
+    <div class="form-group">
+        <label for="displayName" class="text-info">Display Name:</label><br>
+        <input type="text" name="displayName" id="displayName" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="info1" class="text-info">Info1:</label><br>
+        <input type="text" name="info1" id="info1" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label for="info2" class="text-info">Info2:</label><br>
+        <input type="text" name="info2" id="info2" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="info3" class="text-info">Info3:</label><br>
+        <input type="text" name="info3" id="info3" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="info4" class="text-info">Info4:</label><br>
+        <input type="text" name="info4" id="info4" class="form-control">
+    </div>    
+        <div class="form-group">
+        <label for="info5" class="text-info">Info5:</label><br>
+        <input type="text" name="info5" id="info5" class="form-control">
+    </div>     
+    <div class="form-group">
+        <input type="button" onclick = "createProfile()" name="submit" class="btn btn-info btn-md" value="Create Profile" >
+    </div>
+
+<button onclick="signOut()">Sign Out</button>
+
+
+
+
+
+
+
+
+<!-- firebase stuff -->
+
+<!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-app.js"></script>
+
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+  <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-analytics.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-firestore.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyAzaFf_jphWnIPN_4ohpi6_-BIDOSWgM-Y",
+    authDomain: "javascript-cabe1.firebaseapp.com",
+    databaseURL: "https://javascript-cabe1.firebaseio.com",
+    projectId: "javascript-cabe1",
+    storageBucket: "javascript-cabe1.appspot.com",
+    messagingSenderId: "22627735196",
+    appId: "1:22627735196:web:34ce10b46e72ed5896bf59",
+    measurementId: "G-EWQQW7VTLE"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+  firebase.analytics();
+</script>
+
+
+</body>
+</html>
