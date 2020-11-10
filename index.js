@@ -95,6 +95,10 @@ function signOut(){
   }
 }
 
+
+
+
+
 //welcome function for user login...
 function welcome(){
 	var userId;
@@ -103,16 +107,16 @@ function welcome(){
 	userId = user.uid;
 	console.log(userId);
 	var docRef = db.collection("userInfo").doc(userId);
-
-
-
+	//gets data from collection "userInfo" -> doc "userID"
 	db.collection("userInfo").doc(userId)
   .get()
   .then(function(doc) {
     if (doc.exists) {
       console.log("Document data:", doc.data());
+      	//gets data from collection and grabs json object
 		var data = JSON.stringify(doc.data());
-        document.querySelector("#welcome").innerHTML = "Welcome:  " + data;
+		var parsed = JSON.parse(data);
+        document.querySelector("#welcome").innerHTML = "Welcome:  " + parsed.name;
 
     } else {
       // doc.data() will be undefined in this case
@@ -121,10 +125,6 @@ function welcome(){
   }).catch(function(error) {
     console.log("Error getting document:", error);
   });
-
-
-
-
   // document.querySelector("#welcome").innerHTML = "Welcome User ID: " +userId;
   } else {
     // No user is signed in.
@@ -134,8 +134,95 @@ function welcome(){
 
 
 
+}
+//function tests to see if i can pull ALL users from collection...WORKS!!
+function test(){
+	firebase.auth().onAuthStateChanged(function(doc) {
+db.collection('userInfo')
+  .get()
+  .then(querySnapshot => {
+    const documents = querySnapshot.docs.map(doc => doc.data())
+    // do something with documents
+        console.log(documents);
+  })
+
+})
+
+}
 
 
+function buildTable(container){
+	//table stuff to create a table of users
+  var table = document.createElement('table');
+  var thead = document.createElement('thead');
+  var tbody = document.createElement('tbody');
+
+
+  var labels = ['Name'];
+	firebase.auth().onAuthStateChanged(function(doc) {
+	db.collection('userInfo')
+	  .get()
+	  .then(querySnapshot => {
+	    const documents = querySnapshot.docs.map(doc => doc.data())
+	    // do something with documents
+	        console.log(documents);
+
+	var objects = documents;
+
+
+
+
+  var theadTr = document.createElement('tr');
+  for (var i = 0; i < labels.length; i++) {
+    var theadTh = document.createElement('th');
+    theadTh.innerHTML = labels[i];
+    theadTr.appendChild(theadTh);
+  }
+  thead.appendChild(theadTr);
+  table.appendChild(thead);
+
+  for (j = 0; j < objects.length; j++) {
+    var tbodyTr = document.createElement('tr');
+    for (k = 0; k < labels.length; k++) {
+      var tbodyTd = document.createElement('td');
+      tbodyTd.innerHTML = objects[j][labels[k].toLowerCase()];
+      tbodyTr.appendChild(tbodyTd);
+    }
+    tbody.appendChild(tbodyTr);
+  }
+  table.appendChild(tbody);
+
+  container.appendChild(table);
+	  })
+
+})
+
+	// var objects = documents;
+
+
+
+
+ //  var theadTr = document.createElement('tr');
+ //  for (var i = 0; i < labels.length; i++) {
+ //    var theadTh = document.createElement('th');
+ //    theadTh.innerHTML = labels[i];
+ //    theadTr.appendChild(theadTh);
+ //  }
+ //  thead.appendChild(theadTr);
+ //  table.appendChild(thead);
+
+ //  for (j = 0; j < objects.length; j++) {
+ //    var tbodyTr = document.createElement('tr');
+ //    for (k = 0; k < labels.length; k++) {
+ //      var tbodyTd = document.createElement('td');
+ //      tbodyTd.innerHTML = objects[j][labels[k].toLowerCase()];
+ //      tbodyTr.appendChild(tbodyTd);
+ //    }
+ //    tbody.appendChild(tbodyTr);
+ //  }
+ //  table.appendChild(tbody);
+
+ //  container.appendChild(table);
 }
 
 
