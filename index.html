@@ -23,7 +23,7 @@
 <!-- CSS-->
 <link rel="stylesheet" href="index.css">
 </head>
-<body>
+<body onload= "onPgLd()">
 
   <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
 
@@ -91,6 +91,7 @@
   const db = firebase.firestore();
   firebase.analytics();
 </script>
+<script type="text/javascript" src="login.js"></script>
 
 <script src = "index.js"></script>
 </body>
