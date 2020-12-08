@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Edit Profile</title>
+  <title>Chat :)</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -45,7 +45,7 @@
 </head>
 
 <!-- body loads welcome...welcomes user function -->
-<body onload = "welcome();test();">
+<body onload = "welcome();test2();showMessages();">
 
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
@@ -72,6 +72,7 @@
 <div class="container-fluid text-center">    
   <div class="row content">
     <div class="col-sm-2 sidenav">
+  
     </div>
     <div class="col-sm-8 text-left"> 
       <h1>Welcome</h1>
@@ -80,20 +81,17 @@
       <p>
       </p> 
       </div>
-
-
+<!-- Div here for where we show all messages\-->
+<div id = "messageSpot" > </div>
       <form>
   <div class="form-group">
-    <label for="changeName">Change Name</label>
-    <input type="text" class="form-control" id="changeName" aria-describedby="changeName" placeholder="Enter new name">
-    <small id="nameHelp" class="form-text text-muted">This will be your display name to other users.</small>
-  </div>
-  <div class="form-group">
-    <label for="convoTopic">Conversation Starter:</label>
-    <input type="text" class="form-control" id="convoTopic" placeholder="Enter a topic">
+    <label for="messageBox">Type a Message</label>
+    <input type="text" class="form-control" id="message1" aria-describedby="messageBox" placeholder="Enter a message to send">
+    <small id="nameHelp" class="form-text text-muted">BE NICE :).</small>
   </div>
 
-  <button onclick="editProfile()" type="button" class="btn btn-dark">Submit Changes</button>
+
+  <!-- <button onclick="sendMessage()" type="button" class="btn btn-dark">Send Message</button>  -->
   <div id="consoleLog" class="text-left"></div>
 
 </form>
@@ -104,17 +102,17 @@
     </div>
     <div class="col-sm-2 sidenav">
       <div class="well">
-        <p>Edit your profile information!</p>
+        <p>Press message button to reply to that specific user!</p>
       </div>
       <div class="well">
-        <p>Enter a topic you'd like to discuss :)</p>
+        <p>Remember to be nice!</p>
       </div>
     </div>
   </div>
 </div>
 
 <footer class="container-fluid text-center">
-  <p>Edit Profile</p>
+  <p>Basic Chat</p>
 </footer>
 
 
