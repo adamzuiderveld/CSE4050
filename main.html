@@ -1,14 +1,14 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>Main Page</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <script src="grid.css"> </script>
+  <script src="login.js"> </script>
+
   <style>
 /* Grid Styling...turns list of divs into grid..
 **w3schools grid examples helped here..*/
@@ -62,7 +62,7 @@
 </head>
 
 <!-- body loads welcome...welcomes user function -->
-<body onload = "welcome();test();buildGrid(document.getElementById('a'));">
+<body onload = "welcome();test();buildGrid(document.getElementById('a'));onMainLd();">
 
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
@@ -72,14 +72,14 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="#">Logo</a>
+     
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
+        <li class="active"><a href="main.html">Home</a></li>
+        
         <li><a href="editProfile.html">Edit Profile</a></li>
-        <li><a href="#">Chat(TODO!!!)</a></li>
+        <li><a href="chat.html">Chat</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><button onclick = "signOut()"><span class="glyphicon glyphicon-log-in"></span> Signout</button></li>
@@ -114,17 +114,17 @@
     </div>
     <div class="col-sm-2 sidenav">
       <div class="well">
-        <p>placeholder</p>
+        <p>Press a name to say Hello to that User</p>
       </div>
       <div class="well">
-        <p>placeholder</p>
+        <p>Press chat to chat with anyone who has replied!</p>
       </div>
     </div>
   </div>
 </div>
 
 <footer class="container-fluid text-center">
-  <p>Footer Text</p>
+  <p>Select a name to say hello to that user!</p>
 </footer>
 
 

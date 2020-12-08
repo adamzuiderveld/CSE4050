@@ -8,6 +8,7 @@ function createUser(){
 	.then(cred => {
 		//create database reference with with the users UID (using cred =>)
 		return db.collection('userInfo').doc(cred.user.uid).set({
+      id: cred.user.uid,
 			name: name
 		});
 		// return result.user.updateProfile
@@ -59,15 +60,11 @@ function login(){
     console.log("error");
   }
 });
-
 }
 
 
 // Signs-out of Firebase.
 function signOut(){
-
-//confirm if user wants to log out
-
   	//if they want to logout...then proceed
 	firebase.auth().signOut().then(function() {
 	window.location.href = "index.html";
@@ -77,9 +74,6 @@ function signOut(){
 });
 
 }
-
-
-
 
 
 //welcome function for user login...
@@ -114,10 +108,9 @@ function welcome(){
     console.log("not signed in yet.");
   }
 });
-
-
-
 }
+
+
 //function tests to see if i can pull ALL users from collection...WORKS!!
 function test(){
 	firebase.auth().onAuthStateChanged(function(doc) {
@@ -130,8 +123,33 @@ db.collection('userInfo')
   })
 
 })
-
 }
+    var ref = db.collection('userInfo').doc(user1).collection('chat');//.doc(uid);
+    var n = user.name;
+    ref.add({message:x,name:user1})
+        .then(function () {
+            console.log(x+" Sent to user");
+        })
+        .catch(function (error) {
+            console.error('Error adding document: ', error);
+        });
+
+
+function sayHi(user1){
+    var user = firebase.auth().currentUser;
+    var VAR = user.uid;
+    var db = firebase.firestore();
+    var ref = db.collection('userInfo').doc(user1).collection('chat');
+    var n = user.name;
+    ref.add({"message" : "hello there :)",name:VAR})
+        .then(function () {
+            console.log('said hello to new person');
+        })
+        .catch(function (error) {
+            console.error('Error adding document: ', error);
+        });
+}
+
 
 
 function buildTable(container){
@@ -159,7 +177,6 @@ function buildTable(container){
             }
             thead.appendChild(theadTr);
             table.appendChild(thead);
-
             for (j = 0; j < objects.length; j++) {
               var tbodyTr = document.createElement('tr');
               for (k = 0; k < labels.length; k++) {
@@ -178,9 +195,65 @@ function buildTable(container){
 })
 }
 
-function buildGrid(container){
 
-//  var d = document.body;
+function buildGrid(container){
+  firebase.auth().onAuthStateChanged(function(doc) {
+  db.collection('userInfo')
+    .get()
+    .then(querySnapshot => {
+            const documents = querySnapshot.docs.map(doc => doc.data())
+                // do something with documents
+                    console.log(documents);
+            var objects = documents;
+            var grid = document.createElement("div");
+            grid.className = "grid";
+            var column = document.createElement("column");
+            column.className = "column";
+            for (j = 0; j < objects.length; j++) {
+                  var data = JSON.stringify(objects[j]);
+                  var parsed = JSON.parse(data);
+                  var prsId = parsed.id;
+                  console.log(parsed.name);
+              var cell = document.createElement('div');
+              cell.className = "gridsquare";
+              //If theres no info to display only show name..
+              if(parsed.info1 === undefined)
+              {
+              //onclick...........LETS U SAY HI TO USERS.....calls function sayHi and parameter is this.id!!:)
+              cell.innerHTML = '<button  id='+parsed.id+' onclick="sayHi(this.id)">'+parsed.name+'</button>';  
+              grid.appendChild(cell);
+              }
+              //else show "convo topic" as well as name"
+              else{
+
+              cell.innerHTML = '<button  id='+parsed.id+' onclick="sayHi(this.id)">'+parsed.name+'</button>'+ "<br>" + "Lets talk about: " + parsed.info1;
+              grid.appendChild(cell);
+            }
+            }
+              a.appendChild(grid);
+    })
+})
+}
+
+
+
+
+function asciiConvertCompare(input1,input2){
+  var x,y;
+  for(var i=0;i<input1.length;i++){
+  var n = input1.charCodeAt(i);
+  x += n;
+  }
+  for(var j=0;j<input2.length;j++){
+  var m = input2.charCodeAt(j);
+  y += m;
+  }
+  if (x>y){
+    var l = x + y
+  }
+}
+
+function buildGrid2(container){
   firebase.auth().onAuthStateChanged(function(doc) {
   db.collection('userInfo')
     .get()
@@ -201,13 +274,15 @@ function buildGrid(container){
                   console.log(parsed.name);
               var cell = document.createElement('div');
               cell.className = "gridsquare";
-
+              //If theres no info to display only show name..
               if(parsed.info1 === undefined)
               {
 
               cell.innerHTML = parsed.name;
               grid.appendChild(cell);
+
               }
+              //else show "convo topic" as well as name"
               else{
               cell.innerHTML = parsed.name + "<br>" + "Lets talk about: " + parsed.info1;
               grid.appendChild(cell);
@@ -221,65 +296,82 @@ function buildGrid(container){
 }
 
 
-function buildGrid2(container){
-
-//  var d = document.body;
-  firebase.auth().onAuthStateChanged(function(doc) {
-  db.collection('userInfo')
-    .get()
-    .then(querySnapshot => {
-            const documents = querySnapshot.docs.map(doc => doc.data())
-                // do something with documents
-                    console.log(documents);
-
-            var objects = documents;
-            var row = document.createElement("div");
-            row.className = "row";
-            var column = document.createElement("column");
-            column.className = "column";
-        
-            for (j = 0; j < objects.length; j++) {
-            for(i = 0 ; i != 0 ; i++){
-
-            }  
-                  var data = JSON.stringify(objects[j]);
-                  var parsed = JSON.parse(data);
-                  console.log(parsed.name);
-              var cell = document.createElement('div');
-              cell.className = "gridsquare";
-              cell.innerHTML = parsed.name;
-              column.appendChild(cell);
-               // if(objects[j] != )
-            }
-              a.appendChild(column);
-    })
-    document.getElementById("a").innerText = a.innerHTML;
-})
-}
-
-
 function editProfile(){
   var changeName = document.getElementById("changeName").value;
   var convoTopic = document.getElementById("convoTopic").value;
   var user = firebase.auth().currentUser;
   var uid = user.uid;
 // Create an initial document to update.
-
 var docRef = db.collection("userInfo").doc(uid);
 docRef.set({
     name: changeName,
     info1: convoTopic
 });
-
-// To update age and favorite color:
-
+//set name and topic to talk about..
 db.collection("userInfo").doc(uid).update({
     "name": changeName,
     "info1": convoTopic
 })
-
 .then(function() {
     console.log("Document successfully updated!");
     consoleLog.innerHTML = "Profile Updated Successfully"
 });
+}
+
+
+//function tests to see if i can pull ALL messages from subcollection.!!
+function test2(){
+firebase.auth().onAuthStateChanged(function(user) {
+db.collection("userInfo").doc(user.uid).collection("chat").get().then(function(querySnapshot) {
+    querySnapshot.forEach(function(doc) {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data());
+    });
+});
+
+});
+}
+
+
+function showMessages(){
+  var div = document.getElementById("messageSpot");
+  firebase.auth().onAuthStateChanged(function(user) {
+
+db.collection("userInfo").doc(user.uid).collection("chat").get().then(function(querySnapshot) {
+    querySnapshot.forEach(function(doc) {
+        // doc.data() is never undefined for query doc snapshots
+                  var data = JSON.stringify(doc.data());
+                  var parsed = JSON.parse(data);
+                  var NME = parsed.name;
+                      var userssss = firebase.auth().currentUser;
+                      var U1 = userssss.uid;
+
+        div.innerHTML += '<br>Name:  ' + parsed.name +'<button id='+parsed.name+' onClick="sendMsg(this.id)">Message Me</button> <br>Message:  '+parsed.message+'<br>' 
+        console.log(doc.id, " => ", doc.data());
+    });
+});
+});
+}
+
+
+function sendMsg(user1){
+
+    var x = document.getElementById("message1").value;
+                  var data = JSON.stringify(x);
+                  var parsed = JSON.parse(data);
+    var usersss = firebase.auth().currentUser;
+    var U = usersss.uid;
+    //var nm = user.displayName;
+    var db = firebase.firestore();
+    var ref = db.collection('userInfo').doc(user1).collection('chat');
+    
+    ref.add({message:x,name:U})
+        .then(function () {
+                  
+
+            console.log(x+" Sent to user "+user1+" from user " + U);
+        })
+        .catch(function (error) {
+            console.error('Error adding document: ', error);
+        });
 }
